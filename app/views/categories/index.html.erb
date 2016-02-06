@@ -1,0 +1,9 @@
+<h1>Active Projects by State in India</h1>
+
+<div class="collection">
+  <% @categories.each do |category| %>
+    <div class="collection-item">
+      <%= link_to category.title, category_path(category.slug) %>
+    </div>
+  <% end %>
+</div>

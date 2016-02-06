@@ -1,0 +1,37 @@
+<nav id="primary-navigation">
+  <div class="nav-wrapper custom-orange">
+    <img class="site-logo" src="http://www.astrallworld.com/images/ganesh%20copy.png">
+    <a href="/" class="thin brand-logo side-margin-15">GaneshaLoans</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down offset-s1">
+      <li><%= link_to "Lend", projects_path %></li>
+      <% if current_user.nil? %>
+        <li><%= link_to "Borrow", new_borrower_path %></li>
+        <li><%= link_to "Login", login_path %></li>
+        <li><%= link_to "Create Account", new_user_path %></li>
+      <% else %>
+        <% if current_user.admin? %>
+          <li><%= link_to "Admin Dashboard", admin_dashboard_index_path %></li>
+          <li><%= link_to "Profile", admin_dashboard_path(current_user.id) %></li>
+          <li><%= link_to "Logout", logout_path , method: :delete %></li>
+        <% elsif current_user %>
+          <% if current_user.lender? && current_user.borrower? %>
+          <li><%= link_to "Borrow", new_borrower_project_path %></li>
+          <li><%= link_to "Profiles", borrower_dashboard_path %></li>
+          <% elsif current_user.lender? %>
+            <li><%= link_to "Borrow", lender_dashboard_path %></li>
+            <li><%= link_to "Profile", lender_dashboard_path %></li>
+          <% elsif current_user.borrower? %>
+            <li><%= link_to "Borrow", new_borrower_project_path %></li>
+            <li><%= link_to "Profile", borrower_dashboard_path %></li>
+          <% else %>
+          <% end %>
+          <li><%= link_to "Logout", logout_path , method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Login", login_path %></li>
+          <li><%= link_to "Create Account", new_user_path %></li>
+        <% end %>
+      <% end %>
+      <li class=""><a href="<%= cart_index_path %>">Cart <span class="new badge custom-blue"><%= @cart.total_count %></span></a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,27 @@
+<div class="card col s12">
+  <div>
+    <div class="col s4 top-margin-10">
+      <a class="image-link" href="<%= user_project_path(user: project.user.slug, id: project.slug) %>"><img class="max-width" src="<%= project.image.url(:original) %>"></a>
+    </div>
+    <div class="col s7 offset-s1">
+      <h5><%= project.title %></h5>
+      <p><%= project.description %></p>
+    </div>
+    <div class="card-action col s7 offset-s1">
+      <div class="center">
+        <h5>Funding Goal: <%= number_to_currency(project.goal_amount) %></h5>
+        <h5 class="custom-orange-text">Amount Loaned: <%= number_to_currency(project.total_loans_amount) %></h5>
+        <h5 class="custom-green-text"><%= project.percent_funded %>% complete</h5>
+      </div>
+      <div class="center">
+      <span id='<%= project.title %>-button' class="col s5 left waves-effect waves-light btn custom-blue">
+        <%= button_to "Learn More", user_project_path(user: project.user.slug, id: project.slug), method: :get %>
+      </span>
+      <span id='<%= project.title%>-lend-button' >
+        <%= link_to "Lend", new_user_cart_project_path(user: project.user.slug,
+                                   project: project), class: "col s5 right waves-effect waves-light btn custom-blue white-text" %>
+      </span>
+    </div>
+    </div>
+  </div>
+</div>

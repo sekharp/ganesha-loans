@@ -1,0 +1,59 @@
+<div id="profile">
+  <h4><%= current_user.username %>'s Admin Profile</h4>
+  <div class="col s4">
+    <a class="image-link"><img class="max-width" src="<%= current_user.image.url(:original) %>"></a>
+  </div>
+  <p>
+    <strong>First name: </strong><%= current_user.first_name %>
+  </p>
+  <p>
+    <strong>Last name: </strong><%= current_user.last_name %>
+  </p>
+  <p>
+    <strong>Username: </strong><%= current_user.username %>
+  </p>
+  <p>
+    <strong>Bio: </strong><%= current_user.bio %>
+  </p>
+
+  <div id='user-<%= current_user.id %>-button' class="waves-effect waves-light btn blue">
+    <%= button_to "Edit Profile", edit_user_path(current_user), method: :get %>
+  </div>
+
+  <div class="projects">
+    <h4>Pending Projects</h4>
+
+    <table id='projects' class="highlight">
+      <thead>
+        <tr>
+          <th data-field="id">Project</th>
+          <th data-field="name">Date Created</th>
+          <th data-field="current_status">Current Status</th>
+          <th data-field="adjust_status">Adjust Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @projects.each do |project| %>
+          <tr>
+            <td><%= link_to project.title, admin_project_path(id: project.slug) %></td>
+            <td><%= project.created_at.strftime("%B %d, %Y") %></td>
+            <td><%= project.status unless project.status.nil? %></td>
+
+            <td>
+              <% if project.status == "Pending" %>
+                <%= link_to "Mark As Approved", admin_project_path(:id => project.id, :status => "Active", :source => "Profile"), method: :put  %><br>
+                <%= link_to "Cancel", admin_project_path(:id => project.id, :status => "Cancelled", :source => "Profile"), method: :put  %>
+              <% elsif project.status == "Active" %>
+                <%= link_to "Mark as Completed", admin_project_path(:id => project.id, :status => "Completed", :source => "Profile"), method: :put  %><br>
+                <%= link_to "Cancel", admin_project_path(:id => project.id, :status => "Cancelled", :source => "Profile"), method: :put  %>
+              <% else %>
+                Project Inactive
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

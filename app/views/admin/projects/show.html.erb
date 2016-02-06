@@ -1,0 +1,44 @@
+<div class="project-info container">
+  <h2 class="center-align"><%= @project.title %></h2>
+  <div class="center col s6">
+    <a><img class="max-width" src="<%= @project.image.url(:original) %>"></a>
+  </div>
+  <h5 class="borrower-info center-align"><em>Borrower: <%= @project.user.full_name %></em></h5>
+  <div class="center-align">
+    <a><img class="portrait" src="<%= @project.user.image.url(:original) %>"></a><br>
+  <p><%= @project.description %></p>
+  <h6><strong>Funding Goal: <%= number_to_currency(@project.goal_amount) %>
+  <h5 class="custom-orange-text">Amount Loaned: <%= number_to_currency(@project.total_loans_amount) %></h5>
+  <h5 class="custom-green-text"><%= @project.percent_funded %>% complete</h5>
+  </div>
+  <div class="lend-btn">
+    <%= link_to "Lend",
+        new_user_cart_project_path(user: @project.user.slug,
+                                   project: @project),
+                                   class: "col s5 left waves-effect waves-light btn custom-blue"%>
+  </div>
+</div>
+
+<br><br>
+
+<div class="loans container">
+  <h3 class="center-align">Loans</h3>
+
+  <ul class="collection">
+    <% @loans.each do |loan| %>
+      <li class="collection-item">
+        <b><%= loan.user.full_name %></b><br>
+        Amount: <%= number_to_currency(loan.amount) %><br><br>
+        <div class="right-align">
+          <em>Created on <%= loan.created_at.strftime("%b %e, %Y") %></em>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<br><br>
+
+<div class="center-align">
+  <%= link_to_projects_page %>
+</div>

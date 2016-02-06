@@ -1,0 +1,24 @@
+<h1 id="top">
+  <%= "All Projects" %>
+</h1>
+
+<span id='categories-path-button' class="col s5 waves-effect waves-light btn custom-blue">
+  <%= button_to "List of Project Categories", categories_path, method: :get %>
+</span><br>
+
+<div class="row">
+  <div id="my-projects">
+    <% @projects.each do |project| %>
+      <%= render partial: "project", locals: { project: project } %>
+    <% end %>
+  </div>
+</div>
+
+<div id="infinite-scrolling">
+  <%= will_paginate @projects %>
+</div>
+
+<div class="center">
+  <a class="waves-effect waves-light btn custom-blue" href="#primary-navigation">Back to top</a>
+</div>
+<br>

@@ -1,0 +1,14 @@
+<div class="container">
+  <h4 class="center-align"><%= "Contribute to #{@project.title}" %></h4>
+  <p>Please enter an amount:</p>
+  <div class="lend-form">
+    <%= form_for(:cart_project, url: { controller: :cart_projects, action: :create }) do |f| %>
+      <%= f.label :amount %>
+      <%= f.text_field :amount %>
+
+      <%= f.hidden_field :project_id, value: @project.id %>
+
+      <%= f.submit "Lend!", class: "col s5 right waves-effect waves-light btn custom-blue" %>
+    <% end %>
+  </div>
+</div>

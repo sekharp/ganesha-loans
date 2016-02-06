@@ -1,0 +1,33 @@
+<h1>Your Cart</h1>
+
+<div id="cart-contents">
+  <ul class="collection">
+    <% @cart.projects.each do |cart_project| %>
+      <div class="collection-item bottom-margin-20" id="<%= cart_project.title %>-button">
+        <img class="right thumbnail circlec col s1" src="<%= cart_project.image.url %>" alt='<%= cart_project.title %>'/>
+        <h3 class="col s4"><%= cart_project.title %> — <%= number_to_currency(cart_project.amount) %></h3>
+        <p class=""><%= cart_project.description %></p>
+        <li>
+          <div class="loan">
+              <%= form_for cart_project, url: user_cart_project_path(user: cart_project.user.slug, id: cart_project.id) do |f| %>
+                <%= f.label :amount %>
+                <%= f.text_field :amount %>
+
+                <%= f.submit "Update", class: "bottom-margin-20 waves-effect waves-light btn btn-large custom-blue" %>
+                <%= link_to "Remove", user_cart_project_path(user: cart_project.user.slug, id: cart_project.id), method: :delete, class: "right bottom-margin-20 waves-effect waves-light btn btn-large custom-blue" %>
+              <% end %>
+          </div>
+        </li>
+      </div>
+    <% end %>
+  </ul>
+
+  <h2 class="top-margin-40">Complete Your Loan</h2>
+  <div class="collection">
+    <div class="collection-item">
+      <p><b>Number of Loans:</b> <%= @cart.total_count %></h5>
+      <h5><b>Total Price:</b> <%= number_to_currency(@cart.total_amount) %></h5></br>
+      <li class="bottom-margin-20 right waves-effect waves-light btn btn-large blue"><%= button_to "Checkout", checkout_path %></li>
+    </div>
+  </div>
+</div>

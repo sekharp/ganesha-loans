@@ -1,0 +1,73 @@
+.side-margin-15 {
+  margin: 0 15px 0 15px;
+}
+.top-margin-40 {
+  margin-top: 40px;
+}
+.top-margin-10 {
+  margin-top: 10px;
+}
+.bottom-margin-20 {
+  margin-bottom: 20px;
+}
+.alert {
+  padding: 5px 20px;
+}
+.max-width{
+  max-width: 300px;
+}
+.portrait{
+  max-width: 100px;
+}
+.thumbnail {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+.site-logo {
+  max-width: 60px;
+  margin-top: auto;
+  margin-left: 10px;
+  margin-bottom: auto;
+}
+.custom-orange {
+  background-color: #FF9933 !important;
+}
+.custom-orange-text {
+  color: #FF9933 !important;
+}
+.custom-green {
+  background-color: #138808 !important;
+}
+.custom-green-text {
+  color: #138808 !important;
+}
+.custom-blue {
+  background-color: #000080 !important;
+}
+#profile-title {
+  padding-top: 15px;
+}
+body {
+  display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+  }

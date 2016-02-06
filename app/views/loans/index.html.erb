@@ -1,0 +1,20 @@
+<h1>Past Loans</h1>
+<table id='past-loans' class="highlight">
+  <thead>
+    <tr>
+      <th data-field="id">Loan Number</th>
+      <th data-field="name">Date loaned</th>
+      <th data-field="price">Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= link_to loan.id, loan %></td>
+        <td><%= loan.created_at.strftime("%B %d, %Y") %></td>
+        <td><%= loan.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

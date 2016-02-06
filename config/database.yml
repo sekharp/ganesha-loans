@@ -1,0 +1,19 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: sticker_shop_development
+
+test:
+  <<: *default
+  database: sticker_shop_test
+
+production:
+  <<: *default
+  database: sticker_shop_production
+  username: sticker_shop
+  password: <%= ENV['STICKER_SHOP_DATABASE_PASSWORD'] %>

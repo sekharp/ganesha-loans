@@ -1,0 +1,16 @@
+<h1 class="center-align">Create a New Category</h1>
+
+<div class="container">
+  <%= form_for @category, url: admin_categories_path do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.submit "Submit", class: "right waves-effect waves-light btn custom-green" %>
+  <% end %>
+</div>
+
+<br><br><br>
+
+<div class="center-align">
+  <%= link_to "Go back", admin_categories_path, class: "waves-effect waves-light btn custom-blue" %>
+</div>

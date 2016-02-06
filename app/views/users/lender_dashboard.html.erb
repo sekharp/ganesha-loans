@@ -1,0 +1,77 @@
+  <div id="profile-title" class="row center">
+    <div class="col s2 offset-s1">
+    <a class="image-link"><img class="thumbnail circle" src="<%= current_user.image.url(:original) %>"></a>
+    </div>
+    <h4 class="left"><%= current_user.username %>'s Lender Profile</h4>
+  </div>
+
+<div class="row">
+  <div id="profile" class="col s8 offset-s2">
+    <div>
+      <p>
+        <b>First name: </b><%= @user.first_name %>
+      </p>
+      <p>
+        <b>Last name: </b><%= @user.last_name %>
+      </p>
+      <p>
+        <b>Username: </b><%= @user.username %>
+      </p>
+      <p>
+        <b>Street address: </b><%= current_user.street_address %>
+      </p>
+      <p>
+        <b>City: </b><%= current_user.city %>
+      </p>
+      <p>
+        <b>State: </b><%= current_user.state %>
+      </p>
+      <p>
+        <b>Zip: </b><%= current_user.zip %>
+      </p>
+      <p>
+        <b>Bio: </b><%= current_user.bio %>
+      </p>
+      <div id='user-<%= current_user.id %>-button' class="waves-effect waves-light btn-small custom-blue white-text">
+        <%= button_to "Edit Profile", edit_user_path(current_user.id), method: :get %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <h4 class="center">Loans Made</h4>
+  <ul class="col s8 offset-s2">
+  <% current_user.loans.reverse.each do |loan| %>
+    <div class="row">
+      <li>
+        <div class="col s4">
+          <a class="image-link" href="<%= user_project_path(user: loan.project.user.slug, id: loan.project.slug) %>"><img id="project-image" class="thumbnail" src="<%= loan.project.image.url(:original) %>"></a>
+        </div>
+      </li>
+      <li><b>Project Title: <%= loan.project.title %></b></li>
+      <li>Loan Amount: <%= number_to_currency(loan.amount) %></li>
+    </div>
+    <br>
+  <% end %>
+  </ul>
+</div>
+
+<div class="center">
+  <div class="waves-effect waves-light btn custom-green">
+    <%= button_to "Lend", projects_path, method: :get %>
+  </div>
+</div>
+
+<br>
+  <div class="center">
+    <% if current_user.borrower? %>
+      <div id='user-<%= @user.id %>-button' class="waves-effect waves-light btn custom-blue">
+        <%= button_to "View Your Borrower Profile", borrower_dashboard_path, method: :get %>
+      </div>
+    <% else %>
+      <div id='user-<%= @user.id %>-button' class="waves-effect waves-light btn custom-blue">
+        <%= button_to "Become a Borrower", become_borrower_path(current_user.id), method: :put %>
+      </div>
+    <% end %>
+  </div>

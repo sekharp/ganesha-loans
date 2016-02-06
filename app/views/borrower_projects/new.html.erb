@@ -1,0 +1,31 @@
+<h4 class="center">Create A New Project</h4>
+
+<%= form_for(@project, url: {action: "create"}) do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :goal_amount %>
+    <%= f.text_field :goal_amount, class: "project-goal" %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "project-desc" %>
+  </div>
+  <div>
+    <%= f.label :category %><br>
+    <%= f.collection_select :category_id, @categories, :id, :title, { prompt: "Choose a category" }, class: "browser-default" %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image, class: 'form-control' %>
+  </div>
+  <br></br>
+  <div class="center">
+    <%= f.submit "Create Project", class: "btn-large custom-green project-submit" %>
+  </div>
+  </form>
+</div>
+<% end %>

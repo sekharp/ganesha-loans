@@ -1,0 +1,82 @@
+<div id="profile-title" class="center">
+  <div class="row">
+    <div class="col s2 offset-s1">
+      <a class="image-link"><img class="thumbnail circle" src="<%= current_user.image.url(:original) %>"></a>
+    </div>
+    <h4 class="left"><%= current_user.username %>'s Borrower Profile</h4>
+  </div>
+</div>
+<div class="row">
+  <div id="profile" class="col s8 offset-s2">
+    <div>
+      <p>
+        <b>First name: </b><%= current_user.first_name %>
+      </p>
+      <p>
+        <b>Last name: </b><%= current_user.last_name %>
+      </p>
+      <p>
+        <b>Username: </b><%= current_user.username %>
+      </p>
+      <p>
+        <b>Street address: </b><%= current_user.street_address %>
+      </p>
+      <p>
+        <b>City: </b><%= current_user.city %>
+      </p>
+      <p>
+        <b>State: </b><%= current_user.state %>
+      </p>
+      <p>
+        <b>Zip: </b><%= current_user.zip %>
+      </p>
+      <p>
+        <b>Bio: </b><%= current_user.bio %>
+      </p>
+      </p>
+      <div id='user-<%= current_user.id %>-button' class="waves-effect waves-light btn-small custom-blue white-text ">
+        <%= button_to "Edit Profile", edit_user_path(@user.id), method: :get %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <h4 class="center">Your Current Projects</h4>
+  <ul class="col s10 offset-s2">
+    <% current_user.projects.each do |project| %>
+    <div class="row">
+      <div class="col s2">
+        <a class="image-link" href="<%= user_project_path(user: project.user.slug, id: project.slug) %>"><img class="thumbnail" src="<%= project.image.url(:original) %>"></a>
+      </div>
+      <div class="col s8">
+        <li>Project Title: <%= project.title %></li>
+        <li>Project Status: <%= project.status %></li>
+        <li>Goal Amount: <%= number_to_currency(project.goal_amount) %></li>
+        <li>Total Loans Received: <%= number_to_currency(project.total_loans_amount) %></li>
+        <li>Percent Funded: <%= project.percent_funded %>%</li>
+        <li>Description: <%= project.description %></li>
+      </div>
+    </div>
+    <br></br>
+    <% end %>
+  </ul>
+
+  <div class="center">
+    <div class="create-project waves-effect waves-light btn custom-green">
+      <%= button_to "Create A New Project", new_borrower_project_path, method: :get %>
+    </div>
+  </div>
+</div>
+
+<div class="center">
+  <% if current_user.lender? %>
+    <div id='user-<%= current_user.id %>-button' class="waves-effect waves-light btn custom-blue">
+      <%= button_to "View Your Lender Profile", lender_dashboard_path, method: :get %>
+    </div>
+  <% else %>
+    <div id='user-<%= @user.id %>-button' class="waves-effect waves-light btn custom-blue">
+      <%= button_to "Become a Lender", become_lender_path(@user.id), method: :put %>
+    </div>
+  <% end %>
+</div>

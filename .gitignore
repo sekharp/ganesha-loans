@@ -1,0 +1,7 @@
+/.bundle
+log/*
+!/log/.keep
+/tmp
+public/system/
+log/development.log
+coverage/*

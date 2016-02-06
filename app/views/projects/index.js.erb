@@ -1,0 +1,7 @@
+$('#my-projects').append('<%= j render partial: "project", collection: @projects %>');
+<% if @projects.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @projects %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

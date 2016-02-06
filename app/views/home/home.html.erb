@@ -1,0 +1,50 @@
+<h1>Featured Projects</h1>
+
+<div class="row">
+  <% @top_projects.each do |project| %>
+    <div class="card col s12">
+      <div>
+        <div class="col s4 top-margin-10">
+          <a class="image-link" href="<%= user_project_path(user: project[0].user.slug, id: project[0].slug) %>"><img id="project-image" class="max-width" src="<%= project[0].image.url(:original) %>"></a>
+        </div>
+        <div class="col s7 offset-s1">
+          <h5><%= project[0].title %></h5>
+          <p><%= project[0].description %></p>
+        </div>
+        <div class="card-action col s7 offset-s1">
+          <div class="center">
+          <h5>Funding Goal: <%= number_to_currency(project[0].goal_amount) %></h5>
+          <h5 class="custom-orange-text">Amount Loaned: <%= number_to_currency(project[0].total_loans_amount) %></h5>
+          <h5 class="custom-green-text"><%= project[0].percent_funded %>% complete</h5>
+          </div>
+          <div class="center">
+          <span id='<%= project[0].title %>-button' class="col s5 left waves-effect waves-light btn custom-blue">
+            <%= button_to "Learn More", user_project_path(user: project[0].user.slug, id: project[0].slug), method: :get %>
+          </span>
+          <span id='<%= project[0].title%>-lend-button' >
+            <%= link_to "Lend",
+                new_user_cart_project_path(user: project[0].user.slug,
+                                           project: project[0]),
+                                           class: "col s5 right waves-effect waves-light btn custom-blue white-text" %>
+          </span>
+        </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="center">
+  <h3>How It Works</h3>
+  <p>
+    GaneshaLoans is a micro-lending platform that allows you to lend to others in need and without traditional banking systems.
+  </p>
+</div>
+<br>
+<div class="center">
+  <%= link_to "View More Projects", projects_path, class: "waves-effect waves-light btn custom-green" %>
+</div>
+<br>
+<div class="center">
+  <a class="waves-effect waves-light btn custom-blue" href="#primary-navigation">Back to top</a>
+</div>
+<br>
